@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pulse/core/di/dependencies.dart';
 import 'package:pulse/core/di/dependencies_provider.dart';
+import 'package:pulse/core/navigation/app_router.dart';
+import 'package:pulse/feature/home/presentation/home_screen_model.dart';
 import 'package:pulse/main.dart';
 
 /// An Interface for DI Container
@@ -12,10 +14,18 @@ abstract class IDiContainer {
 class DiContainer implements IDiContainer {
   @override
   Future<Widget> configureDependencies() async {
-    const dependencies = Dependencies();
-    return const DependenciesProvider(
+    final dependencies = Dependencies(
+      homeModel: _homeScreenModelFactory(),
+    );
+    return DependenciesProvider(
       dependencies: dependencies,
-      child: App(),
+      child: App(
+        appRouter: _appRouter,
+      ),
     );
   }
+
+  late final AppRouter _appRouter = AppRouter();
+
+  IHomeScreenModel _homeScreenModelFactory() => HomeScreenModel();
 }
