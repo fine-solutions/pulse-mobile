@@ -1,4 +1,4 @@
-package com.example.pulse
+package com.pulse.mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
